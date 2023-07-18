@@ -2,16 +2,12 @@ import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 import images from '../../../assets/images';
 import Image from '../../../components/Image';
-import Search from '../Search';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import config from '../../../config';
-import { HiShoppingCart, HiUserCircle } from 'react-icons/hi';
-import { MdOutlineHistoryEdu } from 'react-icons/md';
 import { useContext, useEffect, useState } from 'react';
 import LocalStorageManager from '../../../utils/LocalStorageManager';
 
 import { StoreContext, actions } from '../../../store';
-import { BiCart } from 'react-icons/bi';
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -27,22 +23,57 @@ function Header() {
                     <div className={cx('side-group')}>
                         <Link to={config.routes.home}>
                             <div className={cx('logo-wrapper')}>
-                                <img src={images.logo} className={cx('logo')} alt="logo" />
+                                <img
+                                    src="https://www.learnworlds.com/app/themes/learnworlds/dist/images/logo.svg"
+                                    className={cx('logo')}
+                                    alt="logo"
+                                />
                             </div>
                         </Link>
                     </div>
                     <div className={cx('side-group')}>
-                        <ul className={cx('header-nav')}>
-                            <li className={cx('header-nav_item')}>Trang chủ</li>
-                            <li className={cx('header-nav_item')}>Về chúng tôi</li>
-                            <li className={cx('header-nav_item')}>Khoá học STEM</li>
-                            <li className={cx('header-nav_item')}>Khoá học</li>
-                            <li className={cx('header-nav_item')}>Mentor</li>
-                            <li className={cx('header-nav_item')}>Blog</li>
-                        </ul>
+                        <nav className={cx('header-nav')}>
+                            <NavLink
+                                className={(nav) => cx('header-nav_item', { active: nav.isActive })}
+                                to={config.routes.home}
+                            >
+                                Trang chủ
+                            </NavLink>
+                            <NavLink
+                                className={(nav) => cx('header-nav_item', { active: nav.isActive })}
+                                to={config.routes.aboutUs}
+                            >
+                                Về chúng tôi
+                            </NavLink>
+                            <NavLink
+                                className={(nav) => cx('header-nav_item', { active: nav.isActive })}
+                                to={config.routes.STEMCourse}
+                            >
+                                Khoá học STEM
+                            </NavLink>
+                            <NavLink
+                                className={(nav) => cx('header-nav_item', { active: nav.isActive })}
+                                to={config.routes.course}
+                            >
+                                Khoá học
+                            </NavLink>
+                            <NavLink
+                                className={(nav) => cx('header-nav_item', { active: nav.isActive })}
+                                to={config.routes.mentor}
+                            >
+                                Mentor
+                            </NavLink>
+                            <NavLink
+                                className={(nav) => cx('header-nav_item', { active: nav.isActive })}
+                                to={config.routes.blog}
+                            >
+                                Blog
+                            </NavLink>
+                        </nav>
                     </div>
                     <div className={cx('cart-wrapper')}>
-                        <BiCart />
+                        <Image src={images.shoppingCart} alt="cart" className={cx('cart-img')} />
+                        <span className={cx('cart-quantity')}>3</span>
                     </div>
                 </div>
             </header>

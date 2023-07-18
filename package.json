@@ -1,6 +1,5 @@
 {
     "name": "course_CV",
-    "homepage": "https://th1nh2411.github.io/course_CV",
     "version": "0.1.0",
     "private": false,
     "dependencies": {

@@ -1,5 +1,6 @@
 @import 'normalize.css';
 
+// @import '../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 /* vietnamese */
 @font-face {
     font-family: 'IBM Plex Sans';
@@ -68,6 +69,7 @@
     --search-height: 40px;
     --search-space-height: 9px;
 }
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -76,9 +78,7 @@
 html {
     font-size: 62.5%;
 }
-a {
-    color: #333;
-}
+
 html body {
     font-family: 'Nunito', sans-serif;
     font-size: 1.6rem;
@@ -129,6 +129,19 @@ a[href] {
         border-radius: 50%;
         background-color: #cccccc69;
     }
+}
+// Grid Boostrap gutter
+.g-2 {
+    --bs-gutter-x: 2.5rem;
+    --bs-gutter-y: 2.5rem;
+}
+.g-3 {
+    --bs-gutter-x: 3.5rem;
+    --bs-gutter-y: 3.5rem;
+}
+.g-4 {
+    --bs-gutter-x: 4.5rem;
+    --bs-gutter-y: 4.5rem;
 }
 // Custom tippy tool tip
 body {

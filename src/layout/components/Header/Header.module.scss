@@ -43,6 +43,7 @@
     list-style: none;
     font-weight: 600;
     transition: 0.1s all ease-in-out;
+    color: #333;
     &:hover {
         color: var(--primary-color);
         cursor: pointer;

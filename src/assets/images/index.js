@@ -16,5 +16,13 @@ const images = {
     tick: require('./tick.png'),
     emptyCart: require('./emptyCart.png'),
     shoppingCart: require('./icon-shopping-cart.jpg'),
+    courseLevel1: require('./icon-title-course.png'),
+    courseLevel2: require('./icon-title-course-2.png'),
+    courseLevel3: require('./icon-title-course-3.png'),
+    courseLevel4: require('./icon-title-course-4.png'),
+    netCourse: require('./net-api-course.jpg'),
+    mentor1: require('./avatar-mentor-1.jpg'),
+    mentor2: require('./avatar-mentor-2.jpg'),
+    mentor3: require('./avatar-mentor-3.jpg'),
 };
 export default images;

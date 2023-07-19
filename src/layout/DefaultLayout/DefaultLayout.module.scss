@@ -38,3 +38,8 @@
         opacity: 0.9;
     }
 }
+@media (max-width: 660px) {
+    .container {
+        padding-top: 0px;
+    }
+}

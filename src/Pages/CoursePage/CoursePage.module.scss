@@ -53,6 +53,13 @@
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+.sidebar-title-icon {
+    margin-left: 4px;
+    display: none;
+    font-size: 1.4rem;
 }
 .sidebar-subtitle {
     color: #888;
@@ -77,11 +84,11 @@
 .field {
     margin-top: 15px;
 }
-.level-radio {
+.level-label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 40px;
+    width: 220px;
 }
 .level-icon {
     height: 40px;
@@ -102,9 +109,20 @@
     font-weight: 700;
 }
 .course-filter {
-    .down-icon {
-        margin-left: 20px;
-    }
+}
+.filter-icon {
+    margin-left: 4px;
+    font-size: 1.6rem;
+}
+.filter-icon.up {
+    color: #79bd21;
+    transform: rotate(180deg);
+}
+.filter-icon.down {
+    color: #bd3e21;
+}
+.ant-select-tree-switcher {
+    display: none;
 }
 .course-item {
     border-radius: 10px;
@@ -168,10 +186,9 @@
     -webkit-line-clamp: 3; /* number of lines to show */
     -webkit-box-orient: vertical;
 }
-.course-item__reviews {
-    .star-icon {
-        color: var(--primary-color);
-    }
+.rate-wrapper {
+    color: var(--primary-color);
+    font-size: 1.6rem;
 }
 
 .course-item__price {
@@ -208,8 +225,37 @@
     text-align: center;
     margin: 30px 0 10px;
 }
+
 @media (max-width: 660px) {
     .course-header {
         margin-top: 20px;
+    }
+    .sidebar-title {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .sidebar-title-icon {
+        margin-left: 6px;
+        display: flex;
+        transition: all 0.2s ease-in-out;
+    }
+    .hide-on-mb {
+        display: none;
+        animation: fadeIn 0.2s ease-in-out;
+    }
+    .hide-on-mb.active {
+        display: initial;
+    }
+    .sidebar-title-icon.active {
+        transform: rotate(90deg);
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

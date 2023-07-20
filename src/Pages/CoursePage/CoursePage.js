@@ -9,9 +9,9 @@ import { Breadcrumb, Button, Checkbox, Dropdown, Input, InputNumber, Pagination,
 import config from '../../config';
 import { Link } from 'react-router-dom';
 import { AiFillStar, AiOutlineDown, AiOutlineStar } from 'react-icons/ai';
-import { BsCalendar3, BsFillPersonFill } from 'react-icons/bs';
+import { BsCalendar3, BsFillCaretRightFill, BsFillPersonFill } from 'react-icons/bs';
 import CourseList from './CourseList';
-import { onlyNumber } from '../../utils/format';
+import { onlyNumber, priceFormat } from '../../utils/format';
 const cx = classNames.bind(styles);
 const breadcrumbItems = [
     {
@@ -29,24 +29,85 @@ const breadcrumbItems = [
         ),
     },
 ];
+const formLearnOptions = [
+    { label: 'Online', value: 'Online' },
+    { label: 'Offline', value: 'Offline' },
+];
+const levelOptions = [
+    {
+        label: (
+            <div className={cx('level-label')}>
+                Dễ
+                <Image className={cx('level-icon')} src={images.courseLevel1} />
+            </div>
+        ),
+        value: 1,
+    },
+    {
+        label: (
+            <div className={cx('level-label')}>
+                Trung bình
+                <Image className={cx('level-icon')} src={images.courseLevel2} />
+            </div>
+        ),
+        value: 2,
+    },
+    {
+        label: (
+            <div className={cx('level-label')}>
+                Khó
+                <Image className={cx('level-icon')} src={images.courseLevel3} />
+            </div>
+        ),
+        value: 3,
+    },
+    {
+        label: (
+            <div className={cx('level-label')}>
+                Cực khó
+                <Image className={cx('level-icon')} src={images.courseLevel4} />
+            </div>
+        ),
+        value: 4,
+    },
+];
+const fieldOptions = [
+    { label: 'Back-End', value: 'Back-End' },
+    { label: 'Front-End', value: 'Front-End' },
+    { label: 'Database', value: 'Database' },
+    { label: 'Cấp tốc', value: 'Cấp tốc' },
+    { label: 'STEM', value: 'STEM' },
+    { label: 'Other', value: 'Other' },
+];
 function CoursePage() {
     const [bottomPrice, setBottomPrice] = useState(0);
     const [topPrice, setTopPrice] = useState(10000000);
     const [formLearn, setFormLearn] = useState([]); // 0 = offline, 1 = online
     const [field, setField] = useState([]);
-    const [level, setLevel] = useState(0);
-    const onChangeFormLearn = (e) => {
-        if (formLearn.find((item) => item === e.target.value)) {
-            setFormLearn((prev) => prev.filter((item) => item !== e.target.value));
+    const [level, setLevel] = useState([]);
+    const [showPriceRangeMb, setShowPriceRangeMb] = useState(false);
+    const [showFormLearnMb, setShowFormLearnMb] = useState(false);
+    const [showLevelMb, setShowLevelMb] = useState(false);
+    const [showFieldMb, setShowFieldMb] = useState(false);
+    const onChangeFormLearn = (checkedValues) => {
+        if (formLearn.find((item) => item === checkedValues)) {
+            setFormLearn((prev) => prev.filter((item) => item !== checkedValues));
         } else {
-            setFormLearn((prev) => [...prev, e.target.value]);
+            setFormLearn((prev) => [...prev, checkedValues]);
         }
     };
-    const onChangeField = (e) => {
-        if (field.find((item) => item === e.target.value)) {
-            setField((prev) => prev.filter((item) => item !== e.target.value));
+    const onChangeLevel = (checkedValues) => {
+        if (field.find((item) => item === checkedValues)) {
+            setLevel((prev) => prev.filter((item) => item !== checkedValues));
         } else {
-            setField((prev) => [...prev, e.target.value]);
+            setLevel((prev) => [...prev, checkedValues]);
+        }
+    };
+    const onChangeField = (checkedValues) => {
+        if (field.find((item) => item === checkedValues)) {
+            setField((prev) => prev.filter((item) => item !== checkedValues));
+        } else {
+            setField((prev) => [...prev, checkedValues]);
         }
     };
     return (
@@ -60,103 +121,101 @@ function CoursePage() {
                 </div>
             </section>
             <section className={cx('course-wrapper')}>
-                <Row>
+                <Row className={cx('g-3')}>
                     <Col md={3}>
                         <div className={cx('sidebar-wrapper')}>
                             <div className={cx('price-range')}>
-                                <div className={cx('sidebar-title')}>Khoảng giá</div>
-                                <div className={cx('sidebar-subtitle')}>Từ giá</div>
-                                <Input
-                                    addonAfter="VNĐ"
-                                    prefixCls="VNĐ"
-                                    style={{ width: 100 + '%' }}
-                                    value={bottomPrice}
-                                    onChange={(e) => {
-                                        console.log(e.target.value);
-                                        if (onlyNumber(e.target.value)) {
-                                            setBottomPrice(e.target.value);
-                                        }
-                                    }}
-                                    status={bottomPrice > topPrice && 'error'}
-                                />
-                                <div className={cx('sidebar-subtitle')}>Đến giá</div>
-                                <Input
-                                    addonAfter="VNĐ"
-                                    style={{ width: 100 + '%' }}
-                                    value={topPrice}
-                                    onChange={(value) => {
-                                        if (onlyNumber(value)) {
-                                            setTopPrice(value);
-                                        }
-                                    }}
-                                    status={bottomPrice > topPrice && 'error'}
-                                />
-                                {bottomPrice > topPrice && (
-                                    <p className={cx('price-error')}>Ngưỡng dưới không được quá ngưỡng trên</p>
-                                )}
+                                <div
+                                    className={cx('sidebar-title')}
+                                    onClick={() => setShowPriceRangeMb(!showPriceRangeMb)}
+                                >
+                                    Khoảng giá{' '}
+                                    <BsFillCaretRightFill
+                                        className={cx('sidebar-title-icon', { active: showPriceRangeMb })}
+                                    />
+                                </div>
+                                <div className={cx('hide-on-mb', { active: showPriceRangeMb })}>
+                                    <div className={cx('sidebar-subtitle')}>Từ giá</div>
+                                    <Input
+                                        size="large"
+                                        addonAfter="VNĐ"
+                                        prefixCls="VNĐ"
+                                        style={{ width: 100 + '%' }}
+                                        value={priceFormat(bottomPrice)}
+                                        onChange={(e) => {
+                                            const numberFormat = e.target.value.replace(/\./g, '');
+                                            if (onlyNumber(Number(numberFormat))) {
+                                                setBottomPrice(Number(numberFormat));
+                                            }
+                                        }}
+                                        status={bottomPrice > topPrice && 'error'}
+                                    />
+                                    <div className={cx('sidebar-subtitle')}>Đến giá</div>
+                                    <Input
+                                        size="large"
+                                        addonAfter="VNĐ"
+                                        style={{ width: 100 + '%' }}
+                                        value={priceFormat(topPrice)}
+                                        onChange={(e) => {
+                                            const numberFormat = e.target.value.replace(/\./g, '');
+                                            if (onlyNumber(Number(numberFormat))) {
+                                                setTopPrice(Number(numberFormat));
+                                            }
+                                        }}
+                                        status={bottomPrice > topPrice && 'error'}
+                                    />
+                                    {bottomPrice > topPrice && (
+                                        <p className={cx('price-error')}>Ngưỡng dưới không được quá ngưỡng trên</p>
+                                    )}
+                                </div>
                             </div>
                             <div className={cx('form-learn')}>
-                                <div className={cx('sidebar-title')}>Hình thức học</div>
-                                <Checkbox value="Online" onChange={onChangeFormLearn}>
-                                    Online
-                                </Checkbox>
-                                <br />
-                                <Checkbox value="Offline" onChange={onChangeFormLearn}>
-                                    Offline
-                                </Checkbox>
+                                <div
+                                    className={cx('sidebar-title')}
+                                    onClick={() => setShowFormLearnMb(!showFormLearnMb)}
+                                >
+                                    Hình thức học{' '}
+                                    <BsFillCaretRightFill
+                                        className={cx('sidebar-title-icon', { active: showFormLearnMb })}
+                                    />
+                                </div>
+                                <div className={cx('hide-on-mb', { active: showFormLearnMb })}>
+                                    <Checkbox.Group
+                                        options={formLearnOptions}
+                                        defaultValue={['Offline']}
+                                        onChange={onChangeFormLearn}
+                                    />
+                                </div>
                             </div>
                             <div className={cx('level')}>
-                                <div className={cx('sidebar-title')}>Trình độ</div>
-                                <div className={cx('level-radio')}>
-                                    <Radio checked={level === 0} onChange={(e) => setLevel(0)}>
-                                        Dễ
-                                    </Radio>
-                                    <Image className={cx('level-icon')} src={images.courseLevel1} />
+                                <div className={cx('sidebar-title')} onClick={() => setShowLevelMb(!showLevelMb)}>
+                                    Trình độ{' '}
+                                    <BsFillCaretRightFill
+                                        className={cx('sidebar-title-icon', { active: showLevelMb })}
+                                    />
                                 </div>
-                                <div className={cx('level-radio')}>
-                                    <Radio checked={level === 1} onChange={(e) => setLevel(1)}>
-                                        Trung bình
-                                    </Radio>
-                                    <Image className={cx('level-icon')} src={images.courseLevel2} />
-                                </div>
-                                <div className={cx('level-radio')}>
-                                    <Radio checked={level === 2} onChange={(e) => setLevel(2)}>
-                                        Khó
-                                    </Radio>
-                                    <Image className={cx('level-icon')} src={images.courseLevel3} />
-                                </div>
-                                <div className={cx('level-radio')}>
-                                    <Radio checked={level === 3} onChange={(e) => setLevel(3)}>
-                                        Cực khó
-                                    </Radio>
-                                    <Image className={cx('level-icon')} src={images.courseLevel4} />
+                                <div className={cx('hide-on-mb', { active: showLevelMb })}>
+                                    <Checkbox.Group
+                                        style={{ flexDirection: 'column' }}
+                                        options={levelOptions}
+                                        onChange={onChangeLevel}
+                                    />
                                 </div>
                             </div>
                             <div className={cx('field')}>
-                                <div className={cx('sidebar-title')}>Lĩnh vực</div>
-                                <Checkbox value="Back-End" onChange={onChangeField}>
-                                    Back-End
-                                </Checkbox>
-                                <br />
-                                <Checkbox value="Front-end" onChange={onChangeField}>
-                                    Front-end
-                                </Checkbox>
-                                <br />
-                                <Checkbox value="Database" onChange={onChangeField}>
-                                    Database
-                                </Checkbox>
-                                <br />
-                                <Checkbox value="Cấp tốc" onChange={onChangeField}>
-                                    Cấp tốc
-                                </Checkbox>
-                                <br />
-                                <Checkbox value="Other" onChange={onChangeField}>
-                                    Other
-                                </Checkbox>
-                                <br />
-                                <Checkbox value="STEM" onChange={onChangeField}>
-                                    STEM
-                                </Checkbox>
+                                <div className={cx('sidebar-title')} onClick={() => setShowFieldMb(!showFieldMb)}>
+                                    Lĩnh vực{' '}
+                                    <BsFillCaretRightFill
+                                        className={cx('sidebar-title-icon', { active: showFieldMb })}
+                                    />
+                                </div>
+                                <div className={cx('hide-on-mb', { active: showFieldMb })}>
+                                    <Checkbox.Group
+                                        options={fieldOptions}
+                                        onChange={onChangeField}
+                                        style={{ flexDirection: 'column' }}
+                                    />
+                                </div>
                             </div>
                             <Button type="primary" className={cx('sidebar-confirm-btn')}>
                                 Tìm kiếm

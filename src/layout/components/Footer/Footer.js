@@ -11,7 +11,7 @@ function Header() {
     return (
         <footer className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Row className={cx('g-3')} md={{ gutter: 10 }}>
+                <Row className={cx('g-3')}>
                     <Col md={4}>
                         <div className={cx('info-wrapper')}>
                             <Image src="https://www.learnworlds.com/app/themes/learnworlds/dist/images/logo.svg" />

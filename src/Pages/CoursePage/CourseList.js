@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { BsArrowDownShort, BsCalendar3, BsFillPersonFill } from 'react-icons/bs';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { priceFormat } from '../../utils/format';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 const cx = classNames.bind(styles);
 
 const courseItems = [
@@ -19,23 +19,27 @@ const courseItems = [
         courseName: '.NET Core API',
         level: 1,
         MentorName: 'Trần Hoà Hiệp',
-        NumStudent: 105,
+        NumStudent: 92,
         info: ' .NET Core API là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
         reviews: 5,
         price: 1500000,
-        numSessions: 20,
+        numSessions: 28,
+        type: 'Offline',
+        field: 'Database',
     },
     {
         courseImg: images.phpCourse,
         mentorImg: images.mentor1,
-        courseName: 'Khoá học Reactjs',
+        courseName: 'Khoá học Php',
         level: 1,
         MentorName: 'Trần Hoà Nghĩa',
-        NumStudent: 105,
+        NumStudent: 58,
         info: ' Reactjs là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
         reviews: 3,
         price: 2500000,
-        numSessions: 20,
+        numSessions: 24,
+        type: 'Online',
+        field: 'Back-End',
     },
     {
         courseImg: images.frontendCourse,
@@ -43,11 +47,13 @@ const courseItems = [
         courseName: 'Khoá học frontend',
         level: 2,
         MentorName: 'Trần Hoà Hiệp',
-        NumStudent: 105,
+        NumStudent: 77,
         info: ' .NET Core API là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
         reviews: 4,
         price: 3400000,
-        numSessions: 20,
+        numSessions: 25,
+        type: 'Offline',
+        field: 'Front-End',
     },
     {
         courseImg: images.devopsCourse,
@@ -55,23 +61,27 @@ const courseItems = [
         courseName: 'Khoá học DevOps',
         level: 3,
         MentorName: 'Trần Hoà Hiệp',
-        NumStudent: 105,
+        NumStudent: 84,
         info: ' DevOps là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
         reviews: 3,
         price: 3000000,
-        numSessions: 20,
+        numSessions: 14,
+        type: 'Online',
+        field: 'Database',
     },
     {
         courseImg: images.frontendCourse,
         mentorImg: images.mentor3,
-        courseName: 'Khoá học frontend',
-        level: 2,
+        courseName: 'Khoá học frontend 3',
+        level: 4,
         MentorName: 'Trần Hoà Hiệp',
-        NumStudent: 105,
+        NumStudent: 112,
         info: ' .NET Core API là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
         reviews: 4,
         price: 1000000,
-        numSessions: 20,
+        numSessions: 22,
+        type: 'Offline',
+        field: 'Front-End',
     },
     {
         courseImg: images.dotMVCCourse,
@@ -79,11 +89,55 @@ const courseItems = [
         courseName: 'Khoá học DOT NET MVC',
         level: 4,
         MentorName: 'Trần Hoà Hưng',
-        NumStudent: 105,
+        NumStudent: 95,
         info: ' DOT NET MVC là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
         reviews: 4,
         price: 2000000,
         numSessions: 20,
+        type: 'Online',
+        field: 'Back-End',
+    },
+    {
+        courseImg: images.dotMVCCourse,
+        mentorImg: images.mentor2,
+        courseName: 'Khoá học DOT NET MVC 2',
+        level: 3,
+        MentorName: 'Trần Hoà Hưng',
+        NumStudent: 65,
+        info: ' DOT NET MVC là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
+        reviews: 3.5,
+        price: 1200000,
+        numSessions: 24,
+        type: 'Online',
+        field: 'Front-End',
+    },
+    {
+        courseImg: images.frontendCourse,
+        mentorImg: images.mentor3,
+        courseName: 'Khoá học frontend 2',
+        level: 1,
+        MentorName: 'Trần Hoà Hiệp2',
+        NumStudent: 89,
+        info: ' .NET Core API là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
+        reviews: 4.5,
+        price: 2700000,
+        numSessions: 25,
+        type: 'Online',
+        field: 'Front-End',
+    },
+    {
+        courseImg: images.devopsCourse,
+        mentorImg: images.mentor2,
+        courseName: 'Khoá học Back end Expressjs',
+        level: 2,
+        MentorName: 'Trần Hoà Hiệp',
+        NumStudent: 67,
+        info: ' Expressjs là một framework được tạo ra bởi Microsoft để xây dựng các ứng dụng web API và microservices microservices microservices',
+        reviews: 3,
+        price: 1200000,
+        numSessions: 22,
+        type: 'Offline',
+        field: 'Back-End',
     },
 ];
 
@@ -92,7 +146,7 @@ const selectFilters = [
         value: 0,
         label: (
             <span className={cx('d-flex', 'align-items-center')}>
-                Theo giá
+                Theo trình độ
                 <BsArrowDownShort className={cx('filter-icon', 'up')} />
             </span>
         ),
@@ -101,7 +155,7 @@ const selectFilters = [
         value: 1,
         label: (
             <span className={cx('d-flex', 'align-items-center')}>
-                Theo giá
+                Theo trình độ
                 <BsArrowDownShort className={cx('filter-icon', 'down')} />
             </span>
         ),
@@ -110,7 +164,7 @@ const selectFilters = [
         value: 2,
         label: (
             <span className={cx('d-flex', 'align-items-center')}>
-                Theo trình độ
+                Theo giá khoá học
                 <BsArrowDownShort className={cx('filter-icon', 'up')} />
             </span>
         ),
@@ -119,38 +173,76 @@ const selectFilters = [
         value: 3,
         label: (
             <span className={cx('d-flex', 'align-items-center')}>
-                Theo trình độ
+                Theo giá khoá học
+                <BsArrowDownShort className={cx('filter-icon', 'down')} />
+            </span>
+        ),
+    },
+
+    {
+        value: 4,
+        label: (
+            <span className={cx('d-flex', 'align-items-center')}>
+                Theo lượng học viên
+                <BsArrowDownShort className={cx('filter-icon', 'up')} />
+            </span>
+        ),
+    },
+    {
+        value: 5,
+        label: (
+            <span className={cx('d-flex', 'align-items-center')}>
+                Theo lượng học viện
                 <BsArrowDownShort className={cx('filter-icon', 'down')} />
             </span>
         ),
     },
 ];
-function CourseList() {
+function CourseList({ filter }) {
     const [courseList, setCourseList] = useState(courseItems);
-
-    const handleChangeFilter = (value) => {
+    useEffect(() => {
+        if (!filter) {
+            setCourseList(courseItems);
+        } else {
+            const { bottomPrice, topPrice, formLearns, levels, fields } = filter;
+            console.log(Number(bottomPrice) <= 1 <= Number(topPrice));
+            setCourseList(
+                courseItems.filter(
+                    (item) =>
+                        Number(bottomPrice) <= item.price &&
+                        item.price <= Number(topPrice) &&
+                        formLearns.some((tp) => tp === item.type) &&
+                        levels.some((lv) => lv === item.level) &&
+                        fields.some((fd) => fd === item.field),
+                ),
+            );
+        }
+    }, [filter]);
+    const handleChangeArrangeBox = (value) => {
         if (value === 0) {
-            setCourseList(courseList.slice().sort((a, b) => a.price - b.price));
-        } else if (value === 1) {
-            setCourseList(courseList.slice().sort((a, b) => b.price - a.price));
-        } else if (value === 2) {
             setCourseList(courseList.slice().sort((a, b) => a.level - b.level));
-        } else if (value === 3) {
+        } else if (value === 1) {
             setCourseList(courseList.slice().sort((a, b) => b.level - a.level));
+        } else if (value === 2) {
+            setCourseList(courseList.slice().sort((a, b) => a.price - b.price));
+        } else if (value === 3) {
+            setCourseList(courseList.slice().sort((a, b) => b.price - a.price));
+        } else if (value === 4) {
+            setCourseList(courseList.slice().sort((a, b) => a.NumStudent - b.NumStudent));
+        } else if (value === 5) {
+            setCourseList(courseList.slice().sort((a, b) => b.NumStudent - a.NumStudent));
         }
     };
     return (
         <>
             <div className={cx('course-header')}>
-                <div className={cx('course-quantity')}>{courseItems.length} khoá</div>
-                <div className={cx('course-filter')}>
-                    <Select
-                        style={{ width: 160 }}
-                        placeholder="Sắp xếp khoá học"
-                        onChange={handleChangeFilter}
-                        options={selectFilters}
-                    />
-                </div>
+                <div className={cx('course-quantity')}>{courseList.length} khoá</div>
+                <Select
+                    style={{ width: 185 }}
+                    placeholder="Sắp xếp khoá học"
+                    onChange={handleChangeArrangeBox}
+                    options={selectFilters}
+                />
             </div>
             <Row>
                 {courseList.map((item, index) => (
@@ -180,6 +272,7 @@ function CourseList() {
                                 <h4 className={cx('course-item__quantity')}>
                                     <BsFillPersonFill />
                                     {item.NumStudent} Học viên
+                                    <span className={cx({ active: item.type === 'Online' })}>{item.type}</span>
                                 </h4>
                                 <h5 className={cx('course-item__info')}>{item.info}</h5>
 

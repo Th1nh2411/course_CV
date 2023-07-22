@@ -82,33 +82,43 @@ const fieldOptions = [
 function CoursePage() {
     const [bottomPrice, setBottomPrice] = useState(0);
     const [topPrice, setTopPrice] = useState(10000000);
-    const [formLearn, setFormLearn] = useState([]); // 0 = offline, 1 = online
-    const [field, setField] = useState([]);
-    const [level, setLevel] = useState([]);
+    const [formLearns, setFormLearn] = useState([]); // 0 = offline, 1 = online
+    const [levels, setLevel] = useState([]);
+    const [fields, setField] = useState([]);
     const [showPriceRangeMb, setShowPriceRangeMb] = useState(false);
     const [showFormLearnMb, setShowFormLearnMb] = useState(false);
     const [showLevelMb, setShowLevelMb] = useState(false);
     const [showFieldMb, setShowFieldMb] = useState(false);
+    const [filter, setFilter] = useState(null);
+    // console.log(`Ngưỡng : [${bottomPrice}, ${topPrice}]`);
+    // console.log(`Hình thức : [${formLearns.map((item) => item)}]`);
+    // console.log(`Level : [${levels.map((item) => item)}]`);
+    // console.log(`Mảng : [${fields.map((item) => item)}]`);
     const onChangeFormLearn = (checkedValues) => {
-        if (formLearn.find((item) => item === checkedValues)) {
-            setFormLearn((prev) => prev.filter((item) => item !== checkedValues));
-        } else {
-            setFormLearn((prev) => [...prev, checkedValues]);
-        }
+        setFormLearn(checkedValues);
     };
     const onChangeLevel = (checkedValues) => {
-        if (field.find((item) => item === checkedValues)) {
-            setLevel((prev) => prev.filter((item) => item !== checkedValues));
-        } else {
-            setLevel((prev) => [...prev, checkedValues]);
-        }
+        setLevel(checkedValues);
     };
     const onChangeField = (checkedValues) => {
-        if (field.find((item) => item === checkedValues)) {
-            setField((prev) => prev.filter((item) => item !== checkedValues));
-        } else {
-            setField((prev) => [...prev, checkedValues]);
-        }
+        setField(checkedValues);
+    };
+    const handleClickFilterOff = () => {
+        setFilter(null);
+        setBottomPrice(0);
+        setTopPrice(10000000);
+        setFormLearn([]);
+        setLevel([]);
+        setField([]);
+    };
+    const handleClickFilter = () => {
+        setFilter({
+            bottomPrice,
+            topPrice,
+            formLearns: formLearns.length !== 0 ? formLearns : formLearnOptions.map((item) => item.value),
+            levels: levels.length !== 0 ? levels : levelOptions.map((item) => item.value),
+            fields: fields.length !== 0 ? fields : fieldOptions.map((item) => item.value),
+        });
     };
     return (
         <div className={cx('wrapper')}>
@@ -124,6 +134,12 @@ function CoursePage() {
                 <Row className={cx('g-3')}>
                     <Col md={3}>
                         <div className={cx('sidebar-wrapper')}>
+                            <div className={cx('sidebar-header')}>
+                                <h2 className={cx('sidebar-header__title')}>Lọc khoá học</h2>
+                                <h5 className={cx('filter-off')} onClick={handleClickFilterOff}>
+                                    Xoá lọc
+                                </h5>
+                            </div>
                             <div className={cx('price-range')}>
                                 <div
                                     className={cx('sidebar-title')}
@@ -182,8 +198,8 @@ function CoursePage() {
                                 <div className={cx('hide-on-mb', { active: showFormLearnMb })}>
                                     <Checkbox.Group
                                         options={formLearnOptions}
-                                        defaultValue={['Offline']}
                                         onChange={onChangeFormLearn}
+                                        value={formLearns}
                                     />
                                 </div>
                             </div>
@@ -196,6 +212,7 @@ function CoursePage() {
                                 </div>
                                 <div className={cx('hide-on-mb', { active: showLevelMb })}>
                                     <Checkbox.Group
+                                        value={levels}
                                         style={{ flexDirection: 'column' }}
                                         options={levelOptions}
                                         onChange={onChangeLevel}
@@ -211,19 +228,20 @@ function CoursePage() {
                                 </div>
                                 <div className={cx('hide-on-mb', { active: showFieldMb })}>
                                     <Checkbox.Group
+                                        value={fields}
                                         options={fieldOptions}
                                         onChange={onChangeField}
                                         style={{ flexDirection: 'column' }}
                                     />
                                 </div>
                             </div>
-                            <Button type="primary" className={cx('sidebar-confirm-btn')}>
+                            <Button onClick={handleClickFilter} type="primary" className={cx('sidebar-confirm-btn')}>
                                 Tìm kiếm
                             </Button>
                         </div>
                     </Col>
                     <Col md={9}>
-                        <CourseList />
+                        <CourseList filter={filter} />
                         <Pagination className={cx('course-pagination')} defaultCurrent={1} total={50} />
                     </Col>
                 </Row>

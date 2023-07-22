@@ -120,6 +120,7 @@ function CoursePage() {
             fields: fields.length !== 0 ? fields : fieldOptions.map((item) => item.value),
         });
     };
+    console.log(bottomPrice);
     return (
         <div className={cx('wrapper')}>
             <section className={cx('banner-wrapper')}>
@@ -152,31 +153,29 @@ function CoursePage() {
                                 </div>
                                 <div className={cx('hide-on-mb', { active: showPriceRangeMb })}>
                                     <div className={cx('sidebar-subtitle')}>Từ giá</div>
-                                    <Input
+                                    <InputNumber
                                         size="large"
                                         addonAfter="VNĐ"
                                         prefixCls="VNĐ"
                                         style={{ width: 100 + '%' }}
-                                        value={priceFormat(bottomPrice)}
-                                        onChange={(e) => {
-                                            const numberFormat = e.target.value.replace(/\./g, '');
-                                            if (onlyNumber(Number(numberFormat))) {
-                                                setBottomPrice(Number(numberFormat));
-                                            }
+                                        value={bottomPrice}
+                                        formatter={(value) => value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                                        onChange={(value) => {
+                                            setBottomPrice(Number(value));
                                         }}
                                         status={bottomPrice > topPrice && 'error'}
                                     />
                                     <div className={cx('sidebar-subtitle')}>Đến giá</div>
-                                    <Input
+                                    <InputNumber
                                         size="large"
                                         addonAfter="VNĐ"
                                         style={{ width: 100 + '%' }}
-                                        value={priceFormat(topPrice)}
-                                        onChange={(e) => {
-                                            const numberFormat = e.target.value.replace(/\./g, '');
-                                            if (onlyNumber(Number(numberFormat))) {
-                                                setTopPrice(Number(numberFormat));
-                                            }
+                                        value={topPrice}
+                                        formatter={(value) => value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                                        onChange={(value) => {
+                                            setTopPrice(Number(value));
                                         }}
                                         status={bottomPrice > topPrice && 'error'}
                                     />

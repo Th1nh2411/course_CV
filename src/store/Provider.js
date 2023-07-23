@@ -202,7 +202,7 @@ const introduceItems = [
         title: 'Mentor tận tâm',
         content:
             'BSMART không chỉ là một trung tâm đào tạo, mà còn là cầu nối giữa những ước mơ lập trình viên và thị trường lao động sôi động, giúp bạn chạm tới thành công trong sự nghiệp lập trình.',
-        icon: <HiUserGroup FaUserGroup />,
+        icon: <HiUserGroup />,
     },
     {
         title: 'Công nghệ mới, thực tế',

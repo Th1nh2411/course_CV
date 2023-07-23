@@ -51,7 +51,7 @@
     src: url(../../assets/fonts/Nunito-Italic-VariableFont_wght.ttf);
 }
 :root {
-    --primary-color: #fa8c16;
+    --primary-color: #ff8900;
     --radial-gradient-bg: linear-gradient(45deg, #27be70 0%, #0c713d 100%);
     --radial-gradient-bg-2: linear-gradient(45deg, #0c713d 0%, #27be70 100%);
     --secondary-color: rgb(95, 95, 95);
@@ -131,15 +131,15 @@ a[href] {
     }
 }
 // Grid Boostrap gutter
-.g-2 {
-    --bs-gutter-x: 2.5rem;
-    --bs-gutter-y: 2.5rem;
-}
-.g-3 {
+.g-6 {
     --bs-gutter-x: 3.5rem;
     --bs-gutter-y: 3.5rem;
 }
-.g-4 {
+.g-7 {
+    --bs-gutter-x: 4rem;
+    --bs-gutter-y: 4rem;
+}
+.g-8 {
     --bs-gutter-x: 4.5rem;
     --bs-gutter-y: 4.5rem;
 }

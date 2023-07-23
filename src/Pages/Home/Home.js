@@ -6,6 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useContext, useEffect, useState } from 'react';
 import { StoreContext, actions } from '../../store';
 import { Button } from 'antd';
+import Slide from '../../components/Slide';
 const cx = classNames.bind(styles);
 
 function Home() {
@@ -30,7 +31,7 @@ function Home() {
             <section className={cx('aboutUs-section')}>
                 <div className={cx('aboutUs-content')}>
                     <h1 className={cx('section-title')}>Về chúng tôi</h1>
-                    <Row>
+                    <Row className={cx('g-6')}>
                         <Col>
                             <div className={cx('aboutUs-leftSide')}>
                                 <h4 className={cx('aboutUs-info')}>
@@ -62,7 +63,7 @@ function Home() {
             <section className={cx('introduce-section')}>
                 <h1 className={cx('section-title')}>Điểm ưu việt tại BSmart</h1>
                 <div className={cx('introduce-body')}>
-                    <Row className={cx('g-3')}>
+                    <Row className={cx('g-6')}>
                         {introduceItems.map((item, index) => (
                             <Col md={4} key={index}>
                                 <div className={cx('introduce-item')}>
@@ -75,6 +76,42 @@ function Home() {
                         ))}
                     </Row>
                 </div>
+            </section>
+            <section className={cx('levelSelection-section')}>
+                <Row className={cx('g-0')}>
+                    <Col md={6}>
+                        <div className={cx('levelSelection-img')}>
+                            <Image src={images.banner3} />
+                            <div className={cx('img-overlay')}></div>
+                            <div className={cx('levelSelection-content')}>
+                                <h1 className={cx('levelSelection-title')}>Trái ngành</h1>
+                                <h3 className={cx('levelSelection-subtitle')}>From Zero to Hero</h3>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col md={6}>
+                        <div className={cx('levelSelection-img', 'reflect')}>
+                            <div className={cx('img-overlay')}></div>
+                            <Image src={images.banner4} />
+                            <div className={cx('levelSelection-content')}>
+                                <h1 className={cx('levelSelection-title')}>Đã biết lập trình</h1>
+                                <h3 className={cx('levelSelection-subtitle')}>
+                                    Đã có kiến thức tư duy lập trình và OOP
+                                </h3>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+            </section>
+            <section className={cx('course-section')}>
+                <h1 className={cx('section-title')}>Khoá học tiêu biểu</h1>
+                <Slide numItemPer={2}>
+                    <h2>hehe</h2>
+                    <h2>hehe</h2>
+                    <h2>hehe</h2>
+                    <h2>hehe</h2>
+                    <h2>hehe</h2>
+                </Slide>
             </section>
         </div>
     );

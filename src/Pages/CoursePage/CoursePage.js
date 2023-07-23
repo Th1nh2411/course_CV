@@ -128,7 +128,7 @@ function CoursePage() {
                 </div>
             </section>
             <section className={cx('course-section')}>
-                <Row className={cx('g-3')}>
+                <Row className={cx('g-6')}>
                     <Col md={3}>
                         <div className={cx('sidebar-wrapper')}>
                             <div className={cx('sidebar-header')}>

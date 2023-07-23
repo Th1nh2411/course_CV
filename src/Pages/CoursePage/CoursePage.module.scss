@@ -1,12 +1,12 @@
 .wrapper {
 }
-.banner-wrapper {
+.banner-section {
     position: relative;
     background: url('../../assets/images/banner-2.jpg') center / cover no-repeat;
     width: 100%;
     padding-top: 300px;
 }
-.banner-wrapper::after {
+.banner-section::after {
     content: '';
     position: absolute;
     top: 0;
@@ -40,7 +40,7 @@
         }
     }
 }
-.course-wrapper {
+.course-section {
     width: var(--default-layout-width);
     max-width: 100%;
     padding: 40px var(--default-layout-horizontal-spacer);

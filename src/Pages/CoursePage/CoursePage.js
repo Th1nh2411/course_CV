@@ -90,10 +90,6 @@ function CoursePage() {
     const [showLevelMb, setShowLevelMb] = useState(false);
     const [showFieldMb, setShowFieldMb] = useState(false);
     const [filter, setFilter] = useState(null);
-    // console.log(`Ngưỡng : [${bottomPrice}, ${topPrice}]`);
-    // console.log(`Hình thức : [${formLearns.map((item) => item)}]`);
-    // console.log(`Level : [${levels.map((item) => item)}]`);
-    // console.log(`Mảng : [${fields.map((item) => item)}]`);
     const onChangeFormLearn = (checkedValues) => {
         setFormLearn(checkedValues);
     };
@@ -123,7 +119,7 @@ function CoursePage() {
     console.log(bottomPrice);
     return (
         <div className={cx('wrapper')}>
-            <section className={cx('banner-wrapper')}>
+            <section className={cx('banner-section')}>
                 <div className={cx('banner-content')}>
                     <div className={cx('banner-title')}>Danh sách khoá học</div>
                     <div className={cx('breadcrumb-wrapper')}>
@@ -131,7 +127,7 @@ function CoursePage() {
                     </div>
                 </div>
             </section>
-            <section className={cx('course-wrapper')}>
+            <section className={cx('course-section')}>
                 <Row className={cx('g-3')}>
                     <Col md={3}>
                         <div className={cx('sidebar-wrapper')}>

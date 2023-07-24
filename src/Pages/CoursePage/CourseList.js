@@ -1,16 +1,13 @@
 import styles from './CoursePage.module.scss';
 import classNames from 'classnames/bind';
-import Image from '../../components/Image';
-import images from '../../assets/images';
+
 import { Col, Row } from 'react-bootstrap';
 import { Button, Rate, Select } from 'antd';
 import config from '../../config';
-import { Link } from 'react-router-dom';
 import { BsArrowDownShort, BsCalendar3, BsFillPersonFill } from 'react-icons/bs';
-import { RiMoneyDollarCircleFill } from 'react-icons/ri';
-import { priceFormat } from '../../utils/format';
 import { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '../../store';
+import CourseItem from '../../components/CourseItem/CourseItem';
 const cx = classNames.bind(styles);
 
 const selectFilters = [
@@ -121,49 +118,7 @@ function CourseList({ filter }) {
             <Row>
                 {courseList.map((item, index) => (
                     <Col key={index} lg={4}>
-                        <div className={cx('course-item')}>
-                            <div className={cx('course-item__header')}>
-                                <Image src={item.courseImg} className={cx('course-item__img')} />
-                                <Image src={item.mentorImg} className={cx('course-item__mentorImg')} />
-                            </div>
-                            <div className={cx('course-item__body')}>
-                                <Image
-                                    src={
-                                        item.level === 1
-                                            ? images.courseLevel1
-                                            : item.level === 2
-                                            ? images.courseLevel2
-                                            : item.level === 3
-                                            ? images.courseLevel3
-                                            : images.courseLevel4
-                                    }
-                                    className={cx('course-item__levelIcon')}
-                                />
-                                <h2 className={cx('course-item__title')}>{item.courseName}</h2>
-                                <h4 className={cx('course-item__subtile')}>
-                                    Mentor <span>{item.MentorName}</span>
-                                </h4>
-                                <h4 className={cx('course-item__quantity')}>
-                                    <BsFillPersonFill />
-                                    {item.NumStudent} Học viên
-                                    <span className={cx({ active: item.type === 'Online' })}>{item.type}</span>
-                                </h4>
-                                <h5 className={cx('course-item__info')}>{item.info}</h5>
-
-                                <Rate className={cx('rate-wrapper')} allowHalf defaultValue={2.5} />
-                                <div className={cx('d-flex', 'align-items-center')}>
-                                    <div className={cx('course-item__price')}>{priceFormat(item.price)} VNĐ</div>
-                                    <div className={cx('course-item__sessions')}>
-                                        <BsCalendar3 className={cx('calendar-icon')} /> {item.numSessions} buổi học
-                                    </div>
-                                </div>
-                                <div className={cx('divider')}></div>
-
-                                <Button type="primary" className={cx('course-item__btn')}>
-                                    Xem chi tiết
-                                </Button>
-                            </div>
-                        </div>
+                        <CourseItem data={item} />
                     </Col>
                 ))}
             </Row>

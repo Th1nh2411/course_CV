@@ -8,8 +8,13 @@
 .slide {
     width: 100%;
     flex-shrink: 0;
+    display: flex;
     object-fit: contain;
     transition: all 400ms ease-in-out 0s;
+    margin: 5px 0;
+}
+.slide + .slide {
+    margin-left: 18px;
 }
 .slide-dots {
     position: absolute;

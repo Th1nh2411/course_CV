@@ -7,11 +7,13 @@ import { useContext, useEffect, useState } from 'react';
 import { StoreContext, actions } from '../../store';
 import { Button } from 'antd';
 import Slide from '../../components/Slide';
+import CourseItem from '../../components/CourseItem';
 const cx = classNames.bind(styles);
 
 function Home() {
     const [state, dispatch] = useContext(StoreContext);
     const introduceItems = state.introduceItems;
+    const courseItems = state.courseItems;
     return (
         <div className={cx('wrapper')}>
             <section className={cx('banner-section')}>
@@ -105,12 +107,10 @@ function Home() {
             </section>
             <section className={cx('course-section')}>
                 <h1 className={cx('section-title')}>Khoá học tiêu biểu</h1>
-                <Slide numItemPer={2}>
-                    <h2>hehe</h2>
-                    <h2>hehe</h2>
-                    <h2>hehe</h2>
-                    <h2>hehe</h2>
-                    <h2>hehe</h2>
+                <Slide numItemPerSlide={4}>
+                    {courseItems.map((item, index) => (
+                        <CourseItem key={index} className={cx('custom-course-item')} data={item} />
+                    ))}
                 </Slide>
             </section>
         </div>

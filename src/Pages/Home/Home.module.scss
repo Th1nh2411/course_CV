@@ -5,7 +5,7 @@
 }
 .banner-section {
     position: relative;
-    background: url('../../assets/images/banner.jpg') center / cover no-repeat;
+
     width: 100%;
     padding-top: 480px;
 }
@@ -53,7 +53,6 @@
     background-color: var(--primary-color);
     text-transform: uppercase;
     font-weight: 600;
-    height: 40px;
     margin-top: 32px;
 }
 .primary-custom-btn + .primary-custom-btn {
@@ -62,8 +61,6 @@
 // ABOUT US SECTION
 .aboutUs-section {
     position: relative;
-    background: url('../../assets/images/background.jpg') center / cover no-repeat;
-    background-attachment: fixed;
     padding-top: 480px;
 }
 .aboutUs-section::after {

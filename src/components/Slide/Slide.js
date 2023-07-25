@@ -45,11 +45,11 @@ function Slide({ children, numItemPerSlide = 1, className, autoPlay = false, num
                 {childrenArray.map((slide, index) => (
                     <Row
                         key={index}
-                        className={cx('slide', 'g-6')}
+                        className={cx('slide', 'gx-7')}
                         src={slide}
                         style={index === 0 ? { marginLeft: sliderCheck * -100 + '%' } : {}}
                     >
-                        {slide.map((item) => (
+                        {slide.map((item, index) => (
                             <Col key={index} lg={12 / numItemPerSlide}>
                                 <div>{item}</div>
                             </Col>

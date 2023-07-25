@@ -1,84 +1,13 @@
 import styles from './CoursePage.module.scss';
 import classNames from 'classnames/bind';
-import Image from '../../components/Image';
-import images from '../../assets/images';
 import { Col, Row } from 'react-bootstrap';
 import { useContext, useEffect, useState } from 'react';
-import { StoreContext, actions } from '../../store';
 import { Breadcrumb, Button, Checkbox, Dropdown, Input, InputNumber, Pagination, Radio } from 'antd';
-import config from '../../config';
-import { Link } from 'react-router-dom';
-import { AiFillStar, AiOutlineDown, AiOutlineStar } from 'react-icons/ai';
 import { BsCalendar3, BsFillCaretRightFill, BsFillPersonFill } from 'react-icons/bs';
 import CourseList from './CourseList';
-import { onlyNumber, priceFormat } from '../../utils/format';
+import COURSE_PAGE_DATA from './data';
 const cx = classNames.bind(styles);
-const breadcrumbItems = [
-    {
-        title: (
-            <Link to={config.routes.home} className={cx('breadcrumb-text')}>
-                Trang chủ
-            </Link>
-        ),
-    },
-    {
-        title: (
-            <Link to={config.routes.course} className={cx('breadcrumb-text')}>
-                Khoá học
-            </Link>
-        ),
-    },
-];
-const formLearnOptions = [
-    { label: 'Online', value: 'Online' },
-    { label: 'Offline', value: 'Offline' },
-];
-const levelOptions = [
-    {
-        label: (
-            <div className={cx('level-label')}>
-                Dễ
-                <Image className={cx('level-icon')} src={images.courseLevel1} />
-            </div>
-        ),
-        value: 1,
-    },
-    {
-        label: (
-            <div className={cx('level-label')}>
-                Trung bình
-                <Image className={cx('level-icon')} src={images.courseLevel2} />
-            </div>
-        ),
-        value: 2,
-    },
-    {
-        label: (
-            <div className={cx('level-label')}>
-                Khó
-                <Image className={cx('level-icon')} src={images.courseLevel3} />
-            </div>
-        ),
-        value: 3,
-    },
-    {
-        label: (
-            <div className={cx('level-label')}>
-                Cực khó
-                <Image className={cx('level-icon')} src={images.courseLevel4} />
-            </div>
-        ),
-        value: 4,
-    },
-];
-const fieldOptions = [
-    { label: 'Back-End', value: 'Back-End' },
-    { label: 'Front-End', value: 'Front-End' },
-    { label: 'Database', value: 'Database' },
-    { label: 'Cấp tốc', value: 'Cấp tốc' },
-    { label: 'STEM', value: 'STEM' },
-    { label: 'Other', value: 'Other' },
-];
+
 function CoursePage() {
     const [bottomPrice, setBottomPrice] = useState(0);
     const [topPrice, setTopPrice] = useState(10000000);
@@ -111,9 +40,10 @@ function CoursePage() {
         setFilter({
             bottomPrice,
             topPrice,
-            formLearns: formLearns.length !== 0 ? formLearns : formLearnOptions.map((item) => item.value),
-            levels: levels.length !== 0 ? levels : levelOptions.map((item) => item.value),
-            fields: fields.length !== 0 ? fields : fieldOptions.map((item) => item.value),
+            formLearns:
+                formLearns.length !== 0 ? formLearns : COURSE_PAGE_DATA.formLearnOptions.map((item) => item.value),
+            levels: levels.length !== 0 ? levels : COURSE_PAGE_DATA.levelOptions.map((item) => item.value),
+            fields: fields.length !== 0 ? fields : COURSE_PAGE_DATA.fieldOptions.map((item) => item.value),
         });
     };
     console.log(bottomPrice);
@@ -123,7 +53,11 @@ function CoursePage() {
                 <div className={cx('banner-content')}>
                     <div className={cx('banner-title')}>Danh sách khoá học</div>
                     <div className={cx('breadcrumb-wrapper')}>
-                        <Breadcrumb separator=">" className={cx('breadcrumb-wrapper')} items={breadcrumbItems} />
+                        <Breadcrumb
+                            separator=">"
+                            className={cx('breadcrumb-wrapper')}
+                            items={COURSE_PAGE_DATA.breadcrumbItems}
+                        />
                     </div>
                 </div>
             </section>
@@ -192,7 +126,7 @@ function CoursePage() {
                                 </div>
                                 <div className={cx('hide-on-mb', { active: showFormLearnMb })}>
                                     <Checkbox.Group
-                                        options={formLearnOptions}
+                                        options={COURSE_PAGE_DATA.formLearnOptions}
                                         onChange={onChangeFormLearn}
                                         value={formLearns}
                                     />
@@ -209,7 +143,7 @@ function CoursePage() {
                                     <Checkbox.Group
                                         value={levels}
                                         style={{ flexDirection: 'column' }}
-                                        options={levelOptions}
+                                        options={COURSE_PAGE_DATA.levelOptions}
                                         onChange={onChangeLevel}
                                     />
                                 </div>
@@ -224,7 +158,7 @@ function CoursePage() {
                                 <div className={cx('hide-on-mb', { active: showFieldMb })}>
                                     <Checkbox.Group
                                         value={fields}
-                                        options={fieldOptions}
+                                        options={COURSE_PAGE_DATA.fieldOptions}
                                         onChange={onChangeField}
                                         style={{ flexDirection: 'column' }}
                                     />

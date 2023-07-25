@@ -8,77 +8,19 @@ import { BsArrowDownShort, BsCalendar3, BsFillPersonFill } from 'react-icons/bs'
 import { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '../../store';
 import CourseItem from '../../components/CourseItem/CourseItem';
+import COURSE_PAGE_DATA from './data';
 const cx = classNames.bind(styles);
 
-const selectFilters = [
-    {
-        value: 0,
-        label: (
-            <span className={cx('d-flex', 'align-items-center')}>
-                Theo trình độ
-                <BsArrowDownShort className={cx('filter-icon', 'up')} />
-            </span>
-        ),
-    },
-    {
-        value: 1,
-        label: (
-            <span className={cx('d-flex', 'align-items-center')}>
-                Theo trình độ
-                <BsArrowDownShort className={cx('filter-icon', 'down')} />
-            </span>
-        ),
-    },
-    {
-        value: 2,
-        label: (
-            <span className={cx('d-flex', 'align-items-center')}>
-                Theo giá khoá học
-                <BsArrowDownShort className={cx('filter-icon', 'up')} />
-            </span>
-        ),
-    },
-    {
-        value: 3,
-        label: (
-            <span className={cx('d-flex', 'align-items-center')}>
-                Theo giá khoá học
-                <BsArrowDownShort className={cx('filter-icon', 'down')} />
-            </span>
-        ),
-    },
-
-    {
-        value: 4,
-        label: (
-            <span className={cx('d-flex', 'align-items-center')}>
-                Theo lượng học viên
-                <BsArrowDownShort className={cx('filter-icon', 'up')} />
-            </span>
-        ),
-    },
-    {
-        value: 5,
-        label: (
-            <span className={cx('d-flex', 'align-items-center')}>
-                Theo lượng học viện
-                <BsArrowDownShort className={cx('filter-icon', 'down')} />
-            </span>
-        ),
-    },
-];
 function CourseList({ filter }) {
-    const [state, dispatch] = useContext(StoreContext);
-    const courseItems = state.courseItems;
-    const [courseList, setCourseList] = useState(courseItems);
+    const [courseList, setCourseList] = useState(COURSE_PAGE_DATA.courseItems);
     useEffect(() => {
         if (!filter) {
-            setCourseList(courseItems);
+            setCourseList(COURSE_PAGE_DATA.courseItems);
         } else {
             const { bottomPrice, topPrice, formLearns, levels, fields } = filter;
             console.log(Number(bottomPrice) <= 1 <= Number(topPrice));
             setCourseList(
-                courseItems.filter(
+                COURSE_PAGE_DATA.courseItems.filter(
                     (item) =>
                         Number(bottomPrice) <= item.price &&
                         item.price <= Number(topPrice) &&
@@ -112,7 +54,7 @@ function CourseList({ filter }) {
                     style={{ width: 185 }}
                     placeholder="Sắp xếp khoá học"
                     onChange={handleChangeArrangeBox}
-                    options={selectFilters}
+                    options={COURSE_PAGE_DATA.selectFilters}
                 />
             </div>
             <Row>

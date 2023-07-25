@@ -30,22 +30,22 @@ function CourseItem({ className, data }) {
                     }
                     className={cx('course-item__levelIcon')}
                 />
-                <h2 className={cx('course-item__title')}>{data.courseName}</h2>
+                <h2 className={cx('course-item__title')}>{data.name}</h2>
                 <h4 className={cx('course-item__subtile')}>
-                    Mentor <span>{data.MentorName}</span>
+                    Mentor <span>{data.mentor}</span>
                 </h4>
                 <h4 className={cx('course-item__quantity')}>
                     <BsFillPersonFill />
-                    {data.NumStudent} Học viên
+                    {data.numStudent} Học viên
                     <span className={cx({ active: data.type === 'Online' })}>{data.type}</span>
                 </h4>
-                <h5 className={cx('course-item__info')}>{data.info}</h5>
+                <h5 className={cx('course-item__info')}>{data.description}</h5>
 
-                <Rate className={cx('rate-wrapper')} allowHalf defaultValue={2.5} />
+                <Rate className={cx('rate-wrapper')} allowHalf value={data.star} />
                 <div className={cx('d-flex', 'align-items-center')}>
                     <div className={cx('course-item__price')}>{priceFormat(data.price)} VNĐ</div>
                     <div className={cx('course-item__sessions')}>
-                        <BsCalendar3 className={cx('calendar-icon')} /> {data.numSessions} buổi học
+                        <BsCalendar3 className={cx('calendar-icon')} /> {data.lessons} buổi học
                     </div>
                 </div>
                 <div className={cx('divider')}></div>

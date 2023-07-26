@@ -8,6 +8,7 @@ import { Button, Rate, Select } from 'antd';
 import { BsCalendar3, BsFillPersonFill } from 'react-icons/bs';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { priceFormat } from '../../utils/format';
+import { HotFireIcon } from '../Icon/Icon';
 const cx = classNames.bind(styles);
 
 function CourseItem({ className, data }) {
@@ -26,10 +27,13 @@ function CourseItem({ className, data }) {
                             ? images.courseLevel2
                             : data.level === 3
                             ? images.courseLevel3
-                            : images.courseLevel4
+                            : data.level === 4
+                            ? images.courseLevel4
+                            : 'https://bsmart.edu.vn/assets/images/captoc.webp'
                     }
                     className={cx('course-item__levelIcon')}
                 />
+
                 <h2 className={cx('course-item__title')}>{data.name}</h2>
                 <h4 className={cx('course-item__subtile')}>
                     Mentor <span>{data.mentor}</span>
@@ -50,7 +54,7 @@ function CourseItem({ className, data }) {
                 </div>
                 <div className={cx('divider')}></div>
 
-                <Button type="primary" className={cx('course-item__btn')}>
+                <Button size="large" type="primary" className={cx('course-item__btn')}>
                     Xem chi tiết
                 </Button>
             </div>

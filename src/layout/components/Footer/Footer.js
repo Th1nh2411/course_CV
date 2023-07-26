@@ -12,7 +12,7 @@ function Header() {
         <footer className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <Row className={cx('g-6')}>
-                    <Col md={4}>
+                    <Col md={6} lg={4}>
                         <div className={cx('info-wrapper')}>
                             <Image src="https://www.learnworlds.com/app/themes/learnworlds/dist/images/logo.svg" />
                             <div className={cx('introduce')}>
@@ -30,7 +30,7 @@ function Header() {
                             </div>
                         </div>
                     </Col>
-                    <Col md={2}>
+                    <Col md={6} lg={2}>
                         <div className={cx('info-wrapper')}>
                             <div className={cx('info-title')}>Menu</div>
                             <div className={cx('info-subtitle')}>Trang chủ</div>
@@ -42,7 +42,7 @@ function Header() {
                             <div className={cx('info-subtitle')}>Blog</div>
                         </div>
                     </Col>
-                    <Col md={2}>
+                    <Col md={6} lg={2}>
                         <div className={cx('info-wrapper')}>
                             <div className={cx('info-title')}>Điều khoản</div>
                             <div className={cx('info-subtitle')}>Chính sách bảo mật</div>
@@ -54,7 +54,7 @@ function Header() {
                             <div className={cx('info-subtitle')}>Đăng ký Mentor</div>
                         </div>
                     </Col>
-                    <Col md={4}>
+                    <Col md={6} lg={4}>
                         <div className={cx('info-wrapper')}>
                             <div className={cx('info-title')}>Liên hệ với chúng tôi</div>
                             <div className={cx('info-subtitle')}>

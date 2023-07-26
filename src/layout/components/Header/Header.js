@@ -52,36 +52,42 @@ function Header() {
                     <div className={cx('side-group')}>
                         <nav className={cx('header-nav')}>
                             <NavLink
+                                onClick={handleCloseMenuMb}
                                 className={(nav) => cx('header-nav_item', { active: nav.isActive })}
                                 to={config.routes.home}
                             >
                                 Trang chủ
                             </NavLink>
                             <NavLink
+                                onClick={handleCloseMenuMb}
                                 className={(nav) => cx('header-nav_item', { active: nav.isActive })}
                                 to={config.routes.aboutUs}
                             >
                                 Về chúng tôi
                             </NavLink>
                             <NavLink
+                                onClick={handleCloseMenuMb}
                                 className={(nav) => cx('header-nav_item', { active: nav.isActive })}
                                 to={config.routes.STEMCourse}
                             >
                                 Khoá học STEM
                             </NavLink>
                             <NavLink
+                                onClick={handleCloseMenuMb}
                                 className={(nav) => cx('header-nav_item', { active: nav.isActive })}
                                 to={config.routes.course}
                             >
                                 Khoá học
                             </NavLink>
                             <NavLink
+                                onClick={handleCloseMenuMb}
                                 className={(nav) => cx('header-nav_item', { active: nav.isActive })}
                                 to={config.routes.mentor}
                             >
                                 Mentor
                             </NavLink>
                             <NavLink
+                                onClick={handleCloseMenuMb}
                                 className={(nav) => cx('header-nav_item', { active: nav.isActive })}
                                 to={config.routes.blog}
                             >

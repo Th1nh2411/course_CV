@@ -48,7 +48,6 @@ function Slide({
         },
         ...breakpoints,
     };
-    console.log(breakpointsOptions);
     return (
         <div className={cx('wrapper', className)}>
             <Swiper
@@ -60,24 +59,10 @@ function Slide({
                 slidesPerView={1}
                 slidesPerGroup={1}
                 spaceBetween={space}
-                // Ẩn các bullet trong 1 view, chỉ hiện bullet đại diện
                 pagination={{
                     clickable: true,
-                    renderBullet: function (index, className) {
-                        if (index % numItemPerSlide === 0 || numItemPerSlide === numTransitionItem) {
-                            return '<span class="' + className + '"></span>';
-                        } else {
-                            return '<span class="' + className + '" hidden></span>';
-                        }
-                    },
-                }}
-                // Chức năng làm bullet đầu active khi trong view có 1 phần tử active
-                onPaginationUpdate={(swiper, paginationEl) => {
-                    setViewIndex(swiper.activeIndex);
-                    if (swiper.activeIndex % numItemPerSlide !== 0) {
-                        const indexTarget = swiper.activeIndex - (swiper.activeIndex % numItemPerSlide);
-                        swiper.pagination.bullets[indexTarget].classList.add('swiper-pagination-bullet-active');
-                    }
+                    dynamicBullets: true,
+                    dynamicMainBullets: 3,
                 }}
                 autoplay={
                     autoPlay && {

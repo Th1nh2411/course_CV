@@ -46,7 +46,7 @@ function Home() {
                     <Row className={cx('g-5', 'aboutUs-body')}>
                         <Col lg={6} xs={12}>
                             <div className={cx('aboutUs-leftSide')}>
-                                <h4 className={cx('aboutUs-info')}>{HOME_DATA.about.description}</h4>
+                                <h3 className={cx('aboutUs-info')}>{HOME_DATA.about.description}</h3>
                                 <div className={cx('aboutUs-actions')}>
                                     <Button
                                         onClick={() => navigate(config.routes.course)}

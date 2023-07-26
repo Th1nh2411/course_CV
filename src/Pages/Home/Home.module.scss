@@ -23,7 +23,7 @@
 }
 .banner-section {
     position: relative;
-    padding: 40px 0 50px;
+    padding: 60px 0;
 }
 .banner-section::after {
     content: '';
@@ -70,7 +70,7 @@
 // ABOUT US SECTION
 .aboutUs-section {
     position: relative;
-    padding: 40px 0 50px;
+    padding: 60px 0;
 }
 .aboutUs-section::before {
     content: '';
@@ -192,29 +192,31 @@
 }
 // COURSE,MENTOR,ROAD SECTION
 .course-section,
-.mentor-section,
-.road-section {
+.mentor-section {
     padding: 50px 0;
     width: var(--default-layout-width);
     max-width: 100%;
     margin: auto;
     position: relative;
 }
-
-.road-section::after {
+.road-section {
+    padding: 50px 0;
+    width: 100%;
+    margin: auto;
+    position: relative;
+}
+.road-section::before {
     content: '';
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
-    z-index: 10;
     pointer-events: none;
 }
 .road-content {
     position: relative;
     margin: auto;
-    width: 1030px;
     max-width: 100%;
 }
 .road-title {
